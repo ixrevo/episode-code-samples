@@ -44,6 +44,9 @@
 		DCF88F00234D4A28001BA79A /* ComposableArchitecture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF0C59B2326032B008B45A0 /* ComposableArchitecture.framework */; };
 		DCF88F01234D4A28001BA79A /* PrimeModal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF0C5E02326035C008B45A0 /* PrimeModal.framework */; };
 		DCF88F02234D4A3B001BA79A /* ComposableArchitecture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF0C59B2326032B008B45A0 /* ComposableArchitecture.framework */; };
+		E158CF042377034100C9491C /* PrimeModalUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E158CF032377034100C9491C /* PrimeModalUIKit.swift */; };
+		E158CF062377085800C9491C /* ComposableArchitectureUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E158CF052377085800C9491C /* ComposableArchitectureUIKit.swift */; };
+		E158CF0823770F2F00C9491C /* CounterUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E158CF0723770F2F00C9491C /* CounterUIKit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,10 +221,13 @@
 		DCF0C60A2326036F008B45A0 /* FavoritePrimesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FavoritePrimesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCF0C6112326036F008B45A0 /* FavoritePrimesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimesTests.swift; sourceTree = "<group>"; };
 		DCF0C6132326036F008B45A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DCF0C627232603B7008B45A0 /* ComposableArchitecture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposableArchitecture.swift; sourceTree = "<group>"; };
+		DCF0C627232603B7008B45A0 /* ComposableArchitecture.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ComposableArchitecture.swift; sourceTree = "<group>"; };
 		DCF0C62923260405008B45A0 /* FavoritePrimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimes.swift; sourceTree = "<group>"; };
 		DCF0C62B2326040D008B45A0 /* PrimeModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeModal.swift; sourceTree = "<group>"; };
-		DCF0C62D23260414008B45A0 /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		DCF0C62D23260414008B45A0 /* Counter.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		E158CF032377034100C9491C /* PrimeModalUIKit.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = PrimeModalUIKit.swift; sourceTree = "<group>"; };
+		E158CF052377085800C9491C /* ComposableArchitectureUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposableArchitectureUIKit.swift; sourceTree = "<group>"; };
+		E158CF0723770F2F00C9491C /* CounterUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterUIKit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +339,7 @@
 				DC90716D22FA102900B38B42 /* Products */,
 				DC36ED16234CD8040027F7A1 /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
 		};
 		DC90716D22FA102900B38B42 /* Products */ = {
@@ -388,9 +395,10 @@
 			isa = PBXGroup;
 			children = (
 				DCF0C59D2326032B008B45A0 /* ComposableArchitecture.h */,
-				DCF0C627232603B7008B45A0 /* ComposableArchitecture.swift */,
-				CAE7DF60234E7E4A00A6076A /* Effects.swift */,
 				DCF0C59E2326032B008B45A0 /* Info.plist */,
+				DCF0C627232603B7008B45A0 /* ComposableArchitecture.swift */,
+				E158CF052377085800C9491C /* ComposableArchitectureUIKit.swift */,
+				CAE7DF60234E7E4A00A6076A /* Effects.swift */,
 			);
 			path = ComposableArchitecture;
 			sourceTree = "<group>";
@@ -408,9 +416,10 @@
 			isa = PBXGroup;
 			children = (
 				DCF0C5C023260348008B45A0 /* Counter.h */,
-				DCF0C62D23260414008B45A0 /* Counter.swift */,
-				DC29217322FB231F006090DF /* WolframAlpha.swift */,
 				DCF0C5C123260348008B45A0 /* Info.plist */,
+				DCF0C62D23260414008B45A0 /* Counter.swift */,
+				E158CF0723770F2F00C9491C /* CounterUIKit.swift */,
+				DC29217322FB231F006090DF /* WolframAlpha.swift */,
 			);
 			path = Counter;
 			sourceTree = "<group>";
@@ -428,8 +437,9 @@
 			isa = PBXGroup;
 			children = (
 				DCF0C5E22326035C008B45A0 /* PrimeModal.h */,
-				DCF0C62B2326040D008B45A0 /* PrimeModal.swift */,
 				DCF0C5E32326035C008B45A0 /* Info.plist */,
+				DCF0C62B2326040D008B45A0 /* PrimeModal.swift */,
+				E158CF032377034100C9491C /* PrimeModalUIKit.swift */,
 			);
 			path = PrimeModal;
 			sourceTree = "<group>";
@@ -871,6 +881,7 @@
 			files = (
 				CAE7DF61234E7E4A00A6076A /* Effects.swift in Sources */,
 				DCF0C628232603B7008B45A0 /* ComposableArchitecture.swift in Sources */,
+				E158CF062377085800C9491C /* ComposableArchitectureUIKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -887,6 +898,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCF0C62E23260414008B45A0 /* Counter.swift in Sources */,
+				E158CF0823770F2F00C9491C /* CounterUIKit.swift in Sources */,
 				CAD67E2023329887000C7787 /* WolframAlpha.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -903,6 +915,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E158CF042377034100C9491C /* PrimeModalUIKit.swift in Sources */,
 				DCF0C62C2326040D008B45A0 /* PrimeModal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

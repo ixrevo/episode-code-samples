@@ -16,7 +16,23 @@ public typealias CounterState = (
   isNthPrimeButtonDisabled: Bool
 )
 
-public func counterReducer(state: inout CounterState, action: CounterAction) -> [Effect<CounterAction>] {
+public struct CounterEnvironment {
+  let primeModal: PrimeModalEnvironment
+  let nthPrime: (Int) -> Effect<Int?>
+
+  public init(primeModal: PrimeModalEnvironment = .init(),
+              nthPrime: @escaping (Int) -> Effect<Int?>) {
+    self.primeModal = primeModal
+    self.nthPrime = nthPrime
+  }
+}
+
+extension CounterEnvironment {
+  public static let prod = CounterEnvironment(nthPrime: nthPrime(_:))
+}
+
+public func counterReducer(state: inout CounterState,
+                           action: CounterAction) -> [Reader<CounterEnvironment, Effect<CounterAction>>] {
   switch action {
   case .decrTapped:
     state.count -= 1
@@ -28,28 +44,13 @@ public func counterReducer(state: inout CounterState, action: CounterAction) -> 
 
   case .nthPrimeButtonTapped:
     state.isNthPrimeButtonDisabled = true
-    return [
-      nthPrime(state.count)
+    let count = state.count
+    return [Reader {
+      $0.nthPrime(count)
         .map(CounterAction.nthPrimeResponse)
         .receive(on: .main)
-
-
-//      Effect { callback in
-//      nthPrime(count) { prime in
-//        DispatchQueue.main.async {
-//          callback(.nthPrimeResponse(prime))
-//        }
-//      }
-//      var p: Int?
-//      let sema = DispatchSemaphore(value: 0)
-//      nthPrime(count) { prime in
-//        p = prime
-//        sema.signal()
-//      }
-//      sema.wait()
-//      return .nthPrimeResponse(p)
-//    }
-  ]
+      }
+    ]
 
   case let .nthPrimeResponse(prime):
     state.alertNthPrime = prime.map(PrimeAlert.init(prime:))
@@ -63,8 +64,14 @@ public func counterReducer(state: inout CounterState, action: CounterAction) -> 
 }
 
 public let counterViewReducer = combine(
-  pullback(counterReducer, value: \CounterViewState.counter, action: \CounterViewAction.counter),
-  pullback(primeModalReducer, value: \.primeModal, action: \.primeModal)
+  pullback(counterReducer,
+           value: \CounterViewState.counter,
+           action: \CounterViewAction.counter,
+           environment: id),
+  pullback(primeModalReducer,
+           value: \.primeModal,
+           action: \.primeModal,
+           environment: get(\CounterEnvironment.primeModal))
 )
 
 public struct PrimeAlert: Identifiable {
@@ -130,12 +137,10 @@ public enum CounterViewAction {
 }
 
 public struct CounterView: View {
-  @ObservedObject var store: Store<CounterViewState, CounterViewAction>
+  @ObservedObject var store: Store<CounterViewState, CounterViewAction, CounterEnvironment>
   @State var isPrimeModalShown = false
-//  @State var alertNthPrime: PrimeAlert?
-//  @State var isNthPrimeButtonDisabled = false
 
-  public init(store: Store<CounterViewState, CounterViewAction>) {
+  public init(store: Store<CounterViewState, CounterViewAction, CounterEnvironment>) {
     self.store = store
   }
 
@@ -149,7 +154,7 @@ public struct CounterView: View {
       Button("Is this prime?") { self.isPrimeModalShown = true }
       Button(
         "What is the \(ordinal(self.store.value.count)) prime?",
-        action: self.nthPrimeButtonAction
+        action: { self.store.send(.counter(.nthPrimeButtonTapped)) }
       )
         .disabled(self.store.value.isNthPrimeButtonDisabled)
     }
@@ -160,7 +165,8 @@ public struct CounterView: View {
         store: self.store
           .view(
             value: { ($0.count, $0.favoritePrimes) },
-            action: { .primeModal($0) }
+            action: { .primeModal($0) },
+            environment: get(\CounterEnvironment.primeModal)
         )
       )
     }
@@ -174,15 +180,6 @@ public struct CounterView: View {
         }
       )
     }
-  }
-
-  func nthPrimeButtonAction() {
-//    self.isNthPrimeButtonDisabled = true
-//    nthPrime(self.store.value.count) { prime in
-//      self.alertNthPrime = prime.map(PrimeAlert.init(prime:))
-//      self.isNthPrimeButtonDisabled = false
-//    }
-    self.store.send(.counter(.nthPrimeButtonTapped))
   }
 }
 

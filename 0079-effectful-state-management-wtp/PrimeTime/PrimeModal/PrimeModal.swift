@@ -8,7 +8,8 @@ public enum PrimeModalAction {
   case removeFavoritePrimeTapped
 }
 
-public func primeModalReducer(state: inout PrimeModalState, action: PrimeModalAction) -> [Effect<PrimeModalAction>] {
+public func primeModalReducer(state: inout PrimeModalState,
+                              action: PrimeModalAction) -> [Reader<PrimeModalEnvironment, Effect<PrimeModalAction>>] {
   switch action {
   case .removeFavoritePrimeTapped:
     state.favoritePrimes.removeAll(where: { $0 == state.count })
@@ -20,10 +21,14 @@ public func primeModalReducer(state: inout PrimeModalState, action: PrimeModalAc
   }
 }
 
-public struct IsPrimeModalView: View {
-  @ObservedObject var store: Store<PrimeModalState, PrimeModalAction>
+public struct PrimeModalEnvironment {
+  public init() {}
+}
 
-  public init(store: Store<PrimeModalState, PrimeModalAction>) {
+public struct IsPrimeModalView: View {
+  @ObservedObject var store: Store<PrimeModalState, PrimeModalAction, PrimeModalEnvironment>
+
+  public init(store: Store<PrimeModalState, PrimeModalAction, PrimeModalEnvironment>) {
     self.store = store
   }
 
